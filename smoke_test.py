@@ -81,6 +81,12 @@ def test_miprov2_constructor():
 
 def test_gepa_end_to_end_offline():
     """The real thing: a full GEPA reflective-evolution loop, just with a DummyLM."""
+    import logging
+
+    # Under a canned DummyLM some reflection calls fail to parse and GEPA retries;
+    # that's expected offline noise — silence the retry spam for clean output.
+    logging.getLogger("dspy.teleprompt.gepa.gepa").setLevel(logging.WARNING)
+
     reflection_lm = DummyLM(
         [
             "Improved instruction: first match the stack trace signature "
