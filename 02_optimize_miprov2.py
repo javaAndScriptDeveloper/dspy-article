@@ -47,7 +47,7 @@ def main():
         display_table=3,
     )
     result = evaluate(optimized)
-    print(f"\nMIPROv2-optimized score: {result.score:.3f} (max 1.25), task model: {lm.model}")
+    print(f"\nMIPROv2-optimized score: {result.score / 100:.2f} per incident, {result.score / 125:.0%} of max (1.25), task model: {lm.model}")
 
     os.makedirs("optimized", exist_ok=True)
     optimized.save("optimized/miprov2_triage.json")
@@ -55,7 +55,7 @@ def main():
 
     # What did the optimizer actually write into our prompt?
     print("\n--- Learned instruction (first 400 chars) ---")
-    print(optimized.triage.signature.instructions[:400])
+    print(optimized.triage.predict.signature.instructions[:400])
 
 
 if __name__ == "__main__":

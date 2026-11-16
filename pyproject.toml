@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "Working companion code for the DSPy article on codewithkyryl.dev — GEPA vs MIPROv2 on a Spring Boot incident triage task"
 requires-python = ">=3.11"
 dependencies = [
-    "dspy>=3.0",
+    "dspy[optuna]>=3.0",
 ]
 
 [build-system]

@@ -4,3 +4,4 @@ __pycache__/
 optimized/
 .pytest_cache/
 uv.lock
+.env

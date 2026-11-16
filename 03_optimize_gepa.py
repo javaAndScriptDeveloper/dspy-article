@@ -32,6 +32,9 @@ def main():
         auto="light",                         # smallest rollout budget
         num_threads=4,
         track_stats=True,                     # fills optimized.detailed_results
+        perfect_score=1.25,                   # our metric tops out at 1.25, not GEPA's default 1.0;
+                                              # otherwise every right-root-cause example counts as
+                                              # "perfect" and GEPA never reflects on severity misses
     )
 
     print("Compiling with GEPA (reflective prompt evolution on the Pareto frontier)...")
@@ -49,7 +52,7 @@ def main():
         display_table=3,
     )
     result = evaluate(optimized)
-    print(f"\nGEPA-optimized score: {result.score:.3f} (max 1.25), task model: {lm.model}")
+    print(f"\nGEPA-optimized score: {result.score / 100:.2f} per incident, {result.score / 125:.0%} of max (1.25), task model: {lm.model}")
 
     import json
 
@@ -64,7 +67,7 @@ def main():
     print("Saved instruction to optimized/gepa_triage.json and lineage to optimized/gepa_results.json")
 
     print("\n--- Evolved instruction (first 400 chars) ---")
-    print(optimized.triage.signature.instructions[:400])
+    print(optimized.triage.predict.signature.instructions[:400])
 
 
 if __name__ == "__main__":

@@ -27,7 +27,7 @@ def main():
         display_table=3,
     )
     result = evaluate(program)
-    print(f"\nBaseline score on {len(valset)} incidents: {result.score:.3f} (max 1.25)")
+    print(f"\nBaseline score on {len(valset)} incidents: {result.score / 100:.2f} per incident, {result.score / 125:.0%} of max (1.25)")
 
 
 if __name__ == "__main__":

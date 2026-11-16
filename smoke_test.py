@@ -74,6 +74,7 @@ def test_metrics():
 
 def test_miprov2_constructor():
     dspy.configure(lm=canned_lm())  # MIPROv2 needs a default LM at construction
+    import optuna  # noqa: F401  MIPROv2.compile() needs it; the constructor alone does not
     opt = dspy.MIPROv2(metric=triage_metric, auto="light", num_threads=2)
     assert opt is not None
     print("OK  MIPROv2 constructor (auto='light')")
@@ -133,5 +134,5 @@ if __name__ == "__main__":
     test_gepa_end_to_end_offline()
     test_save_load()
     print("\nAll smoke tests passed — the example is wired correctly.")
-    print("Set OPENAI_API_KEY and run 01_baseline.py, 02_optimize_miprov2.py, 03_optimize_gepa.py for real.")
+    print("Set GEMINI_API_KEY (or any provider key DSPy supports) and run 01_baseline.py, 02_optimize_miprov2.py, 03_optimize_gepa.py for real.")
     sys.exit(0)
